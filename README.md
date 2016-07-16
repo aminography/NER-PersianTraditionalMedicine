@@ -1,2 +1,2 @@
 # PersianTraditionalMedicineNamedEntityRecognizer
-In this project a Persian traditional medicine named entity recognizer was developed.
+In this project a NER tool is developed which recognizes traditional medicine named entities is persian texts.
