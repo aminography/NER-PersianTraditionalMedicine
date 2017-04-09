@@ -10,6 +10,7 @@ public enum PosTag {
 
     public String tag;
     public String description;
+
     PosTag(String tag, String description) {
         this.tag = tag;
         this.description = description;

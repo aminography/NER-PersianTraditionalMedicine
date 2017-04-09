@@ -20,19 +20,20 @@ public class TextUtils {
 
     public static final String SPACE = "\u0020";
 
-    public static final HashSet<String> mToMergeSuffixSet = new HashSet<String>();
+    public static final HashSet<String> TO_MERGE_SUFFIX_SET = new HashSet<String>();
+
     static {
-        mToMergeSuffixSet.add("\u062A\u0631\u064A\u0646"); // tarin
-        mToMergeSuffixSet.add("\u0627\u0628\u0627\u062F"); // Abad
-        mToMergeSuffixSet.add("\u0622\u0628\u0627\u062F"); // Abad
-        mToMergeSuffixSet.add("\u06AF\u064A\u0631\u064A"); // giri
-        mToMergeSuffixSet.add("\u0647\u0627\u064A\u064A"); // haE
-        mToMergeSuffixSet.add("\u0633\u0627\u0632\u064A"); // sazi
-        mToMergeSuffixSet.add("\u0631\u064A\u0632\u064A"); // rizi
-        mToMergeSuffixSet.add("\u0628\u0646\u062F\u064A"); // bandi
-        mToMergeSuffixSet.add("\u0628\u0627\u0631\u0647"); // bare
-        mToMergeSuffixSet.add("\u0647\u0627\u064A"); // haye
-        mToMergeSuffixSet.add("\u0647\u0627"); // hA
+        TO_MERGE_SUFFIX_SET.add("\u062A\u0631\u064A\u0646"); // tarin
+        TO_MERGE_SUFFIX_SET.add("\u0627\u0628\u0627\u062F"); // Abad
+        TO_MERGE_SUFFIX_SET.add("\u0622\u0628\u0627\u062F"); // Abad
+        TO_MERGE_SUFFIX_SET.add("\u06AF\u064A\u0631\u064A"); // giri
+        TO_MERGE_SUFFIX_SET.add("\u0647\u0627\u064A\u064A"); // haE
+        TO_MERGE_SUFFIX_SET.add("\u0633\u0627\u0632\u064A"); // sazi
+        TO_MERGE_SUFFIX_SET.add("\u0631\u064A\u0632\u064A"); // rizi
+        TO_MERGE_SUFFIX_SET.add("\u0628\u0646\u062F\u064A"); // bandi
+        TO_MERGE_SUFFIX_SET.add("\u0628\u0627\u0631\u0647"); // bare
+        TO_MERGE_SUFFIX_SET.add("\u0647\u0627\u064A"); // haye
+        TO_MERGE_SUFFIX_SET.add("\u0647\u0627"); // hA
     }
 
     public static List<Word> documentTokenizer(String inputPath) throws IOException {
@@ -49,7 +50,7 @@ public class TextUtils {
             List<String> wordTokens = TextUtils.wordTokenizer(sentence);
             List<String> wordTokensMerged = new ArrayList<String>();
             for (int i = 0; i < wordTokens.size(); i++) {
-                if (i < wordTokens.size() - 1 && mToMergeSuffixSet.contains(wordTokens.get(i + 1))) {
+                if (i < wordTokens.size() - 1 && TO_MERGE_SUFFIX_SET.contains(wordTokens.get(i + 1))) {
                     wordTokensMerged.add(wordTokens.get(i) + "" + wordTokens.get(i + 1));
                     i++;
                 } else {
@@ -71,7 +72,7 @@ public class TextUtils {
     }
 
     public static List<String> sentenceTokenizer(String text) {
-        text = text.replaceAll("([!\\.\\??¿]+)[ \\n]+", "$1\n\n");
+        text = text.replaceAll("([!\\.\\??ï¿½]+)[ \\n]+", "$1\n\n");
         List<String> tokens = new ArrayList<String>();
         for (String sentence : text.split("\n\n")) {
             sentence = sentence.replace("\n", " ").trim();
@@ -81,7 +82,7 @@ public class TextUtils {
     }
 
     public static List<String> wordTokenizer(String text) {
-        text = text.replaceAll("([¿!\\?]+|[:\\.\u060C\u061B»\\]\\)\\}\"«\\[\\(\\{])", " $1 ").trim();
+        text = text.replaceAll("([ï¿½!\\?]+|[:\\.\u060C\u061Bï¿½\\]\\)\\}\"ï¿½\\[\\(\\{])", " $1 ").trim();
         List<String> tokens = Arrays.asList(text.split(" +"));
         return tokens;
     }
@@ -106,8 +107,8 @@ public class TextUtils {
         token = relaxHehLetters(token);
         token = token.replace("\u0647\u200C\064A", "\u0647");
         token = token.replace("\u0647\u0020\064A", "\u0647");
-        token = token.replace("\u0654", ""); // remove Á
-        token = token.replace("\u0640", ""); // remove Ü
+        token = token.replace("\u0654", ""); // remove ï¿½
+        token = token.replace("\u0640", ""); // remove ï¿½
         return token;
     }
 
